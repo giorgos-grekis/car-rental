@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="rental-service" />
         <module name="reservation-service" />
+        <module name="inventory-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="inventory-service" options="-parameters" />
       <module name="rental-service" options="-parameters" />
       <module name="reservation-service" options="-parameters" />
     </option>
