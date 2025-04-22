@@ -2,11 +2,13 @@ package org.sercar.reservation.rest;
 
 
 import io.quarkus.logging.Log;
+import io.smallrye.graphql.client.GraphQLClient;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.reactive.RestQuery;
 import org.sercar.reservation.inventory.Car;
+import org.sercar.reservation.inventory.GraphQLInventoryClient;
 import org.sercar.reservation.inventory.InventoryClient;
 import org.sercar.reservation.rental.Rental;
 import org.sercar.reservation.rental.RentalClient;
@@ -27,8 +29,16 @@ public class ReservationResource {
     private final InventoryClient inventoryClient;
     private final RentalClient rentalClient;
 
+//    public ReservationResource(ReservationsRepository reservations,
+//                               InventoryClient inventoryClient,
+//                               @RestClient RentalClient rentalClient) {
+//        this.reservationsRepository = reservations;
+//        this.inventoryClient = inventoryClient;
+//        this.rentalClient = rentalClient;
+//    }
+
     public ReservationResource(ReservationsRepository reservations,
-                               InventoryClient inventoryClient,
+                               @GraphQLClient("inventory") GraphQLInventoryClient inventoryClient,
                                @RestClient RentalClient rentalClient) {
         this.reservationsRepository = reservations;
         this.inventoryClient = inventoryClient;
