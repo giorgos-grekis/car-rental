@@ -1,0 +1,27 @@
+## getCars
+# query {
+#   cars {
+#     id
+#     licensePlateNumber
+#     model
+#     manufacturer
+#   }
+# }
+
+# # register a car
+# mutation {
+#   register(car: {
+#     licensePlateNumber:"0123"
+#     model: "406"
+#     manufacturer: "Peugeot"
+#   }) {
+#     licensePlateNumber
+#     model
+#     manufacturer
+#     id
+#   }
+# }
+
+
+## show graphql schema
+# http://localhost:8083/graphql/schema.graphql
