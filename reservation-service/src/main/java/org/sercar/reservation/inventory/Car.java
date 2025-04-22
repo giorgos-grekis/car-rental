@@ -16,7 +16,15 @@ public class Car {
     private String manufacturer;
     private String model;
 
-
+    /**
+     *     Because we use the Car class as a return value from the
+     *     service, Quarkus needs to be able to deserialize it from
+     *     JSON documents and construct its instances.
+     *     Therefore, it’s necessary to provide a public no-argument constructor in
+     *     the Car class.
+     */
+    public Car() {
+    }
 
     public Car(Long id, String licensePlateNumber,
                String manufacturer, String model) {
