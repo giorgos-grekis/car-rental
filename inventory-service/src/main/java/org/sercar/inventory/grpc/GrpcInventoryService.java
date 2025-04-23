@@ -2,6 +2,7 @@ package org.sercar.inventory.grpc;
 
 import io.quarkus.grpc.GrpcService;
 import io.quarkus.logging.Log;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import org.sercar.inventiry.model.CarResponse;
@@ -26,26 +27,46 @@ public class GrpcInventoryService implements org.sercar.inventiry.model.Inventor
     @Inject
     CarInventory inventory;
 
+    // add "Multi" because grpc add is stream
     @Override
-    public Uni<CarResponse> add (InsertCarRequest request) {
-        Car car = new Car();
-        var licensePlateNumber = request.getLicensePlateNumber();
-        car.setLicensePlateNumber(licensePlateNumber);
-
-        var manufacturer = request.getManufacturer();
-        car.setManufacturer(manufacturer);
-
-        var model = request.getModel();
-        car.setModel(model);
-
-        var id = CarInventory.ids.incrementAndGet();
-        car.setId(id);
-        Log.info("Persisting " + car);
-
-        inventory.getCars().add(car);
-
-
-        return null;
+    public Multi<CarResponse> add (Multi<InsertCarRequest> requests) {
+        return requests
+                .map( request -> {
+                            Car car = new Car();
+                            var licensePlateNumber = request.getLicensePlateNumber();
+                            car.setLicensePlateNumber(licensePlateNumber);
+                            var manufacturer = request.getManufacturer();
+                            car.setManufacturer(manufacturer);
+                            var model = request.getModel();
+                            return  car;
+                        })
+                .onItem().invoke(car -> {
+                    Log.info("Persisting " + car);
+                    inventory.getCars().add(car);
+                }).map(car -> CarResponse.newBuilder()
+                        .setLicensePlateNumber(car.getLicensePlateNumber())
+                        .setManufacturer(car.getManufacturer())
+                        .setModel(car.getModel())
+                        .setId(car.getId())
+                        .build());
+//        Car car = new Car();
+//        var licensePlateNumber = request.getLicensePlateNumber();
+//        car.setLicensePlateNumber(licensePlateNumber);
+//
+//        var manufacturer = request.getManufacturer();
+//        car.setManufacturer(manufacturer);
+//
+//        var model = request.getModel();
+//        car.setModel(model);
+//
+//        var id = CarInventory.ids.incrementAndGet();
+//        car.setId(id);
+//        Log.info("Persisting " + car);
+//
+//        inventory.getCars().add(car);
+//
+//
+//        return null;
     }
 
     @Override

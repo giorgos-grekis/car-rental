@@ -56,3 +56,14 @@ If you want to learn more about building native executables, please consult <htt
 ## Related Guides
 
 - SmallRye GraphQL ([guide](https://quarkus.io/guides/smallrye-graphql)): Create GraphQL Endpoints using the code-first approach from MicroProfile GraphQL
+
+
+# gRPC
+
+./mvnw clean package
+
+The extension detects the proto file
+under src/main/proto directory and generates Java code
+under target/generated-sources/grpc.
+
+https://smallrye.io/smallrye-mutiny/latest/
