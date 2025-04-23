@@ -9,7 +9,6 @@ import org.sercar.reservation.reservation.Reservation;
 import org.sercar.reservation.reservation.ReservationsRepository;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 //@DisabledOnIntegrationTest(forArtifactTypes = DisabledOnIntegrationTest.ArtifactType.NATIVE_BINARY)
 @QuarkusTest

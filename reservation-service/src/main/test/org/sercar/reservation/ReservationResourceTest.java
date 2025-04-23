@@ -20,7 +20,7 @@ import org.sercar.reservation.rest.ReservationResource;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.UUID;
+
 
 import static org.hamcrest.Matchers.*;
 
@@ -56,7 +56,7 @@ public class ReservationResourceTest {
 
     @TestHTTPEndpoint(ReservationResource.class)
     @TestHTTPResource("availability") // {baseURL}/reservation/availability
-    URL availability;;
+    URL availability;
 
     @DisabledOnIntegrationTest(forArtifactTypes =
         DisabledOnIntegrationTest.ArtifactType.NATIVE_BINARY)
