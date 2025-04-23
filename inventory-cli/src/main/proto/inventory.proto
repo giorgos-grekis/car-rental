@@ -1,0 +1,36 @@
+syntax="proto3";
+
+option java_multiple_files = true;
+option java_package = "org.sercar.inventory";
+option java_outer_classname = "InventoryProtos";
+
+package inventory;
+
+message InsertCarRequest {
+  string licensePlateNumber = 1;
+  string manufacturer = 2;
+  string model = 3;
+}
+
+message RemoveCarRequest {
+  string licensePlateNumber = 1;
+}
+
+message CarResponse {
+  string licensePlateNumber = 1;
+  string manufacturer = 2;
+  string model = 3;
+  int64 id = 4;
+}
+
+service InventoryService {
+  rpc add(InsertCarRequest) returns (CarResponse) {}
+  rpc remove(RemoveCarRequest) returns (CarResponse) {}
+}
+
+/**
+* Unary — Ο client στέλνει ένα μόνο αίτημα και ο server απαντά με μία μόνο απάντηση.
+* Server streaming — Ο server επιστρέφει πολλές απαντήσεις για κάθε κλήση.
+* Client streaming — Ο client στέλνει πολλά αιτήματα σε μία κλήση.
+* Bidirectional streaming — Ο client και ο server στέλνουν και λαμβάνουν πολλά αιτήματα και απαντήσεις αντίστοιχα.
+ */
