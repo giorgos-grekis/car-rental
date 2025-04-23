@@ -5,11 +5,12 @@ import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
-import org.sercar.inventiry.model.CarResponse;
-import org.sercar.inventiry.model.InsertCarRequest;
-import org.sercar.inventiry.model.RemoveCarRequest;
+import org.sercar.inventory.model.*;
 import org.sercar.inventory.database.CarInventory;
-import org.sercar.inventory.model.Car;
+import org.sercar.inventory.model.CarResponse;
+import org.sercar.inventory.model.InsertCarRequest;
+import org.sercar.inventory.model.InventoryService;
+import org.sercar.inventory.model.RemoveCarRequest;
 
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 
 @GrpcService
-public class GrpcInventoryService implements org.sercar.inventiry.model.InventoryService {
+public class GrpcInventoryService implements InventoryService {
 
     @Inject
     CarInventory inventory;
@@ -38,6 +39,9 @@ public class GrpcInventoryService implements org.sercar.inventiry.model.Inventor
                             var manufacturer = request.getManufacturer();
                             car.setManufacturer(manufacturer);
                             var model = request.getModel();
+                            car.setModel(model);
+                            var id = CarInventory.ids.incrementAndGet();
+                            car.setId(id);
                             return  car;
                         })
                 .onItem().invoke(car -> {
