@@ -15,6 +15,7 @@
         <quarkus.platform.version>3.21.2</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.2</surefire-plugin.version>
+<!--        <mockito-inline.version>5.11.0</mockito-inline.version>-->
     </properties>
 
     <dependencyManagement>
@@ -124,6 +125,7 @@
                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         <maven.home>${maven.home}</maven.home>
+<!--                        <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-inline/${mockito-inline.version}/mockito-inline-${mockito-inline.version}.jar</argLine>-->
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
